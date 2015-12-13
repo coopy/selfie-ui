@@ -1,0 +1,5 @@
+env:
+  browser: true
+
+rules:
+  "func-style": [0, "expression"]

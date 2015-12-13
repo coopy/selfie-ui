@@ -25,6 +25,7 @@
   "devDependencies": {
     "builder-react-component-dev": "^0.1.2",
     "chai": "^3.2.0",
+    "eslint": "^1.10.3",
     "mocha": "^2.3.3",
     "react": "^0.14.0",
     "react-addons-test-utils": "^0.14.0",

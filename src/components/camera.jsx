@@ -1,9 +1,13 @@
-import React from "react";
+import React, { PropTypes } from "react";
+import ReactDom from "react-dom";
 
-import { requestUserVideo } from "../user-media";
+import Button from "./button";
+import Photo from "./photo";
+
+import { requestUserVideo, capturePhoto } from "../user-media";
 import log from "../logger";
 
-const Camera = function (props, context) {
+export default function Camera(props, context) {
   return {
     ...React.Component.prototype,
     props,
@@ -11,6 +15,7 @@ const Camera = function (props, context) {
     state: {
       streamUrl: null
     },
+
     componentWillMount() {
       const { width, height } = this.props;
       requestUserVideo(width, height)
@@ -21,22 +26,40 @@ const Camera = function (props, context) {
           log.error(err);
         });
     },
-    handleMetadataLoaded(ev) {
-      log.info("Metadata loaded", ev);
+
+    getVideoEl() {
+      const el = ReactDom.findDOMNode(this);
+      return el.querySelector("video");
+    },
+
+    takePhoto() {
+      capturePhoto(
+        this.refs.video,
+        this.refs.photo.getCanvasEl()
+      );
     },
     render() {
       const { width, height } = this.props;
       return (<div>
+        <Button buttonText="Take Photo" clickHandler={this.takePhoto.bind(this)} />
         <video
+          ref="video"
           autoPlay="true"
           width={width}
           height={height}
           src={this.state.streamUrl}
-          // onLoadedmetadata={this.handleMetadataLoaded}
+        />
+        <Photo
+          ref="photo"
+          width={width}
+          height={height}
         />
       </div>);
     }
   };
-};
+}
 
-export default Camera;
+Camera.propTypes = {
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired
+};

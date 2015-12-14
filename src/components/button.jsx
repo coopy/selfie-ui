@@ -1,19 +1,20 @@
-import React from "react";
+import React, { PropTypes } from "react";
 
-const Button = function (props, context) {
+export default function Button(props, context) {
   return {
     ...React.Component.prototype,
     props,
     context,
-    state: {
-      message: "Instances through Extension"
-    },
     render() {
-      return (<button onClick={() => this.setState({ message: "stateful!" })}>
-        {this.state.message}
+      const { clickHandler, buttonText } = this.props;
+      return (<button onClick={clickHandler}>
+        {buttonText}
       </button>);
     }
   };
-};
+}
 
-export default Button;
+Button.propTypes = {
+  buttonText: PropTypes.string.isRequired,
+  clickHandler: PropTypes.func.isRequired
+};

@@ -1,3 +1,5 @@
+import log from "./logger";
+
 function findGetMediaImplementation() {
   return navigator.getUserMedia ||
     navigator.webkitGetUserMedia ||
@@ -7,6 +9,24 @@ function findGetMediaImplementation() {
 
 export function clientIsSupported() {
   return findGetMediaImplementation();
+}
+
+export function urlFromStream() {
+  // const vendorUrl = window.URL || window.webkitURL;
+  // return vendorUrl.createObjectURL.bind(vendorUrl);
+}
+
+export function capturePhoto(videoEl, canvasEl) {
+  const { height, width } = videoEl;
+  const context = canvasEl.getContext("2d");
+
+  canvasEl.width = width;
+  canvasEl.height = height;
+
+  context.drawImage(videoEl, 0, 0, width, height);
+  const data = canvasEl.toDataURL("image/png");
+
+  return data;
 }
 
 export function requestUserVideo(width, height) {

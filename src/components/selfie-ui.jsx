@@ -1,19 +1,20 @@
 import React from "react";
 
 // Components
-import Button from "./button";
 import Camera from "./camera";
 
 // Libraries
 import { clientIsSupported } from "../user-media";
 
-const SelfieUI = function (props, context) {
+export default function SelfieUI(props, context) {
   return {
     ...React.Component.prototype,
     props,
     context,
     state: {
+      photos: []
     },
+
     render() {
       if (!clientIsSupported()) {
         return (<p>
@@ -23,13 +24,20 @@ const SelfieUI = function (props, context) {
       }
       return (<div>
         <Camera
-          width="800"
-          height="600"
+          width="640"
+          height="480"
         />
-        <Button />
+        {this.state.photos.map((photo) => {
+          return (
+            <img
+              style={{ float: "left", "margin-right": "10px" }}
+              width="160"
+              height="120"
+              src={photo.url}
+            />
+          );
+        })}
       </div>);
     }
   };
-};
-
-export default SelfieUI;
+}

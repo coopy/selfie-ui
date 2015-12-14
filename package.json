@@ -20,7 +20,9 @@
   },
   "dependencies": {
     "builder": "~2.2.0",
-    "builder-react-component": "^0.1.2"
+    "builder-react-component": "^0.1.2",
+    "react-redux": "^4.0.1",
+    "redux": "^3.0.5"
   },
   "devDependencies": {
     "builder-react-component-dev": "^0.1.2",

@@ -33,15 +33,19 @@ export default function Camera(props, context) {
     },
 
     takePhoto() {
-      capturePhoto(
+      const photoDataUrl = capturePhoto(
         this.refs.video,
         this.refs.photo.getCanvasEl()
       );
+      this.props.onAddPhoto(photoDataUrl);
     },
     render() {
       const { width, height } = this.props;
       return (<div>
-        <Button buttonText="Take Photo" clickHandler={this.takePhoto.bind(this)} />
+        <Button
+          buttonText="Take Photo"
+          clickHandler={this.takePhoto.bind(this)}
+        />
         <video
           ref="video"
           autoPlay="true"
@@ -61,5 +65,6 @@ export default function Camera(props, context) {
 
 Camera.propTypes = {
   width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired
+  height: PropTypes.string.isRequired,
+  onAddPhoto: PropTypes.func
 };

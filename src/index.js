@@ -1,4 +1,3 @@
 module.exports = {
-  SelfieUi:
-    require("./components/selfie-ui")
+  SelfieUi: require("./components/selfie-ui")
 };
